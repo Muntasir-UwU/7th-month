@@ -9,7 +9,8 @@
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     :root { --dark:#07070f; --stem:#14757a; --stem-light:#39c6d6; --petal:#ff8fab; --gold:#ffd166; --leaf:#1aaa7a; }
-    body { margin:0; padding:0; background:var(--dark); overscroll-behavior:none; font-family:'Cormorant Garamond',Georgia,serif; perspective:100px; -webkit-user-select:none; user-select:none; }
+    html { overflow-x:hidden; }
+    body { margin:0; padding:0; background:var(--dark); overscroll-behavior:none; font-family:'Cormorant Garamond',Georgia,serif; perspective:100px; -webkit-user-select:none; user-select:none; overflow-x:hidden; }
     body.not-loaded * { animation-play-state:paused !important; }
     .main-container { height:100dvh; width:100vw; display:flex; align-items:flex-end; justify-content:center; padding-bottom:40px; overflow:hidden; position:relative; }
     .night { position:fixed; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 90%,rgba(57,198,214,.07) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 50% 10%,rgba(26,10,46,.9) 0%,transparent 80%),linear-gradient(160deg,#0d0820 0%,#07070f 50%,#0b0e1a 100%); z-index:0; transition:opacity 1.2s ease; }
@@ -112,6 +113,7 @@
       white-space:nowrap;
       box-shadow:-14px 0 32px 6px rgba(255,100,160,.6),-40px 0 58px 10px rgba(255,80,150,.28),-80px 0 85px 14px rgba(180,40,120,.12),0 0 14px 3px rgba(255,143,171,.45);
       opacity:0;
+      contain:layout style;
       animation:shoot-across var(--sd,2s) cubic-bezier(.12,.8,.32,1) forwards;
     }
     .shoot-box.caught { pointer-events:none !important; animation:shoot-caught .32s ease forwards !important; }
@@ -145,15 +147,15 @@
     #love-overlay { position:fixed; inset:0; z-index:500; background:linear-gradient(135deg,#ff007f 0%,#ff4da6 30%,#ff69b4 60%,#ffb6d9 100%); opacity:0; pointer-events:none; transition:opacity 1.2s ease; overflow:hidden; }
     .love-bg-heart { position:absolute; pointer-events:none; opacity:0; animation:love-float var(--lf-dur,6s) ease-in-out infinite var(--lf-del,0s); }
     @keyframes love-float { 0%{opacity:0;transform:translateY(0) rotate(var(--lf-r,0deg));} 20%{opacity:.25;} 50%{opacity:.35;transform:translateY(-28px) rotate(calc(var(--lf-r,0deg)+12deg));} 80%{opacity:.2;} 100%{opacity:0;transform:translateY(-10px) rotate(var(--lf-r,0deg));} }
-    #love-text-wrap { position:absolute; inset:0; display:flex; align-items:center; pointer-events:none; overflow:hidden; }
+    #love-text-wrap { position:absolute; inset:0; display:flex; align-items:center; pointer-events:none; overflow:hidden; clip-path:inset(0); }
     #love-text { display:block; white-space:nowrap;
       /* ↓↓ CUSTOMIZE FONT HERE ↓↓ */
       font-family:'Oswald', sans-serif; /* ← change font */
       font-weight:600;                  /* ← change weight */
       font-size:clamp(7rem,9vw,8rem); /* ← change size  */
       /* ↑↑ CUSTOMIZE FONT HERE ↑↑ */
-      font-style:normal; color:#fff; text-shadow:0 0 40px rgba(255,255,255,.9),0 0 80px rgba(255,255,255,.4),0 6px 24px rgba(140,0,60,.5); letter-spacing:.02em; transform:translateX(110vw); }
-    #love-text.animate { animation:love-scroll 7s linear forwards; }
+      font-style:normal; color:#fff; text-shadow:0 0 40px rgba(255,255,255,.9),0 0 80px rgba(255,255,255,.4),0 6px 24px rgba(140,0,60,.5); letter-spacing:.02em; transform:translateX(110vw); visibility:hidden; }
+    #love-text.animate { visibility:visible; animation:love-scroll 7s linear forwards; }
     @keyframes love-scroll { 0%{transform:translateX(110vw);} 100%{transform:translateX(-260vw);} }
     /* ══ HAPPY OVERLAY ══ */
     #happy-overlay {
@@ -333,7 +335,7 @@
   </div><!-- /.main-container -->
 
   <script>
-    const SECRET_NAME='pookie';
+    const SECRET_NAME='billi';
     const loginScreen=document.getElementById('login-screen');
     const nameInput=document.getElementById('name-input');
     const enterBtn=document.getElementById('enter-btn');
